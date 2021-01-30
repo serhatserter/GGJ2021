@@ -62,9 +62,11 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckFall()
     {
-        if (transform.position.y < -2f)
+        Vector3 lastPlatformPos = GameManager.Instance.LastTouchedPlatform.transform.position;
+
+        if (transform.position.y < -3f)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            transform.position = new Vector3(lastPlatformPos.x, lastPlatformPos.y + 5f, lastPlatformPos.z - 1f);
         }
     }
 
@@ -118,7 +120,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.transform.tag == "Platform")
         {
-            Debug.Log("Platform Exit added");
+
+            GameManager.Instance.LastTouchedPlatform = collision.gameObject;
+
             jumpPointPosition = collision.transform.GetChild(0).position;
             isJumping = false;
 

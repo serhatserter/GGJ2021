@@ -11,7 +11,7 @@ public class MonsterMovement : MonoBehaviour
     private void Start()
     {
         monsterRb = GetComponent<Rigidbody>();
-        MonsterMoveZSpeed = GameManager.Instance.PlayerMoveZSpeed;
+        MonsterMoveZSpeed = GameManager.Instance.MonsterMoveZSpeed;
         Vcam = transform.GetChild(0).gameObject;
 
         StartCoroutine(WaitStart());

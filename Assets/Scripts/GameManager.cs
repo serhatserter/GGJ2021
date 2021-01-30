@@ -24,11 +24,14 @@ public class GameManager : MonoBehaviour
     public bool IsStart;
     
     public GameObject Player;
+    public GameObject Monster;
+
     public float PlayerMoveZSpeed;
+    public float MonsterMoveZSpeed;
 
     public Material TransparentMat;
-    
-    
+
+    public GameObject LastTouchedPlatform;
     public Action<bool> IsPlatformInvisible;
 
     
