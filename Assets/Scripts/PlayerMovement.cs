@@ -9,12 +9,18 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 screenPosition;
     private Vector2 worldPosition;
-    private Vector3 PlayerSidePosition;
+    private Vector3 playerSidePosition;
+
+    private Vector3 jumpForceVector;
+    private Vector3 jumpPointPosition;
+
+    private bool isJumping;
 
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         playerMoveZSpeed = GameManager.Instance.PlayerMoveZSpeed;
+        jumpForceVector = new Vector3(0, 1, 2);
     }
 
     void Update()
@@ -31,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetMouseButtonUp(0))
         {
             PlayerStopMovement();
+            PlayerJump();
         }
     }
 
@@ -40,9 +47,13 @@ public class PlayerMovement : MonoBehaviour
         screenPosition.z = 20f;
         worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
 
-        PlayerSidePosition = new Vector3(worldPosition.x, transform.position.y, transform.position.z);
+        playerSidePosition = new Vector3(worldPosition.x, transform.position.y, transform.position.z);
 
-        transform.position = Vector3.Lerp(transform.position, PlayerSidePosition, 10f * Time.deltaTime);
+        if (!isJumping)
+        {
+            transform.position = Vector3.Lerp(transform.position, playerSidePosition, 10f * Time.deltaTime);
+
+        }
     }
 
     void PlayerForwardMovement()
@@ -52,7 +63,40 @@ public class PlayerMovement : MonoBehaviour
 
     void PlayerStopMovement()
     {
-        playerRb.velocity = new Vector3(playerRb.velocity.x, playerRb.velocity.y, 0);
+        if (!isJumping)
+        {
+            playerRb.velocity = new Vector3(playerRb.velocity.x, playerRb.velocity.y, 0);
+
+        }
+    }
+
+    void PlayerJump()
+    {
+        if (!isJumping)
+        {
+            if (transform.position.z > jumpPointPosition.z)
+            {
+
+                playerRb.AddForce(jumpForceVector * 350f);
+
+            }
+
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Platform")
+        {
+            jumpPointPosition = collision.transform.GetChild(0).position;
+            isJumping = false;
+        }
+
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        isJumping = true;
     }
 
 
