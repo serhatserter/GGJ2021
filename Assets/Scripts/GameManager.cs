@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,4 +23,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject Player;
     public float PlayerMoveZSpeed;
+
+    public Material TransparentMat;
+    
+    
+    public Action<bool> IsPlatformInvisible;
+
+    
 }
