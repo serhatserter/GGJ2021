@@ -6,13 +6,16 @@ public class MonsterMovement : MonoBehaviour
 {
     public float MonsterMoveZSpeed;
     private Rigidbody monsterRb;
-    private GameObject Vcam;
+
+    public GameObject StartCam;
+    public GameObject LoseCam;
+
 
     private void Start()
     {
         monsterRb = GetComponent<Rigidbody>();
         MonsterMoveZSpeed = GameManager.Instance.MonsterMoveZSpeed;
-        Vcam = transform.GetChild(0).gameObject;
+
 
         StartCoroutine(WaitStart());
     }
@@ -20,7 +23,7 @@ public class MonsterMovement : MonoBehaviour
     IEnumerator WaitStart()
     {
         yield return new WaitForSeconds(2f);
-        Vcam.SetActive(false);
+        StartCam.SetActive(false);
         yield return new WaitForSeconds(0.5f);
         GameManager.Instance.IsStart = true;
 
@@ -40,6 +43,28 @@ public class MonsterMovement : MonoBehaviour
     void MonsterForwardMovement()
     {
         monsterRb.velocity = new Vector3(monsterRb.velocity.x, monsterRb.velocity.y, MonsterMoveZSpeed);
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.name == "Player")
+        {
+            StartCoroutine(LoseCamWait());
+        }
+    }
+
+    IEnumerator LoseCamWait()
+    {
+        GameManager.Instance.Player.GetComponent<Rigidbody>().isKinematic = true;
+        GameManager.Instance.IsStart = false;
+        StartCam.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+        
+        LoseCam.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        GameManager.Instance.FailPanel.SetActive(true);
 
     }
 }

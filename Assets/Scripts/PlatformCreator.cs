@@ -6,6 +6,7 @@ public class PlatformCreator : MonoBehaviour
 {
     public int PlatformCount;
     public Transform StartPoint;
+    public GameObject LastFloor;
     public GameObject[] Platforms;
 
     private void Start()
@@ -23,6 +24,9 @@ public class PlatformCreator : MonoBehaviour
 
             prePlatformPos = newPlatform.transform.position;
         }
+
+        GameObject lastPlatform = Instantiate(LastFloor);
+        lastPlatform.transform.position = new Vector3(prePlatformPos.x, prePlatformPos.y, prePlatformPos.z + 25f);
     }
 
 }

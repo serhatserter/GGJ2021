@@ -22,7 +22,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public bool IsStart;
-    
+    public bool IsLose;
+
     public GameObject Player;
     public GameObject Monster;
 
@@ -30,6 +31,10 @@ public class GameManager : MonoBehaviour
     public float MonsterMoveZSpeed;
 
     public Material TransparentMat;
+
+    public GameObject WinPanel;
+    public GameObject FailPanel;
+
 
     public GameObject LastTouchedPlatform;
     public Action<bool> IsPlatformInvisible;

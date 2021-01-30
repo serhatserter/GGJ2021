@@ -116,6 +116,17 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    IEnumerator WinWait()
+    {
+        playerRb.isKinematic = true;
+        GameManager.Instance.Monster.SetActive(false);
+        GameManager.Instance.IsStart = false;
+
+        yield return new WaitForSeconds(1f);
+
+        GameManager.Instance.WinPanel.SetActive(true);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Platform")
@@ -128,6 +139,13 @@ public class PlayerMovement : MonoBehaviour
 
             if (!Input.GetMouseButton(0)) GameManager.Instance.IsPlatformInvisible?.Invoke(false);
 
+        }
+
+        if (collision.transform.tag == "LastPlatform")
+        {
+            Debug.Log("WIN");
+
+            StartCoroutine(WinWait());
         }
 
     }
