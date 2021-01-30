@@ -58,10 +58,11 @@ public class MonsterMovement : MonoBehaviour
     {
         GameManager.Instance.Player.GetComponent<Rigidbody>().isKinematic = true;
         GameManager.Instance.IsStart = false;
+        StartCam.transform.position = Camera.main.transform.position;
         StartCam.SetActive(true);
 
         yield return new WaitForSeconds(0.5f);
-        
+
         LoseCam.SetActive(true);
         yield return new WaitForSeconds(3f);
         GameManager.Instance.FailPanel.SetActive(true);
