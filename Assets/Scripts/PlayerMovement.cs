@@ -29,30 +29,33 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
-        if (Input.GetMouseButtonDown(0))
+        if (GameManager.Instance.IsStart)
         {
-            if (isTouching) GameManager.Instance.IsPlatformInvisible?.Invoke(true);
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (isTouching) GameManager.Instance.IsPlatformInvisible?.Invoke(true);
+
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                if (isTouching) GameManager.Instance.IsPlatformInvisible?.Invoke(true);
+
+                PlayerSideMovement();
+                PlayerForwardMovement();
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                if (isTouching) GameManager.Instance.IsPlatformInvisible?.Invoke(false);
+
+                PlayerStopMovement();
+                PlayerJump();
+
+
+            }
+
+            CheckFall();
 
         }
-        else if (Input.GetMouseButton(0))
-        {
-            if (isTouching) GameManager.Instance.IsPlatformInvisible?.Invoke(true);
-
-            PlayerSideMovement();
-            PlayerForwardMovement();
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            if (isTouching) GameManager.Instance.IsPlatformInvisible?.Invoke(false);
-
-            PlayerStopMovement();
-            PlayerJump();
-
-
-        }
-
-        CheckFall();
 
     }
 
@@ -128,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
 
-        
+
         isTouching = false;
 
 

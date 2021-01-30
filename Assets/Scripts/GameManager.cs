@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public bool IsStart;
+    
     public GameObject Player;
     public float PlayerMoveZSpeed;
 
