@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7323551776171120724}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ExitObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4055487267635093767}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 5768890324409365328}
   - component: {fileID: 5768890324409365335}
   - component: {fileID: 5783387834351921671}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -118,10 +118,11 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0d7de59d742566e46a62fb5f04ab5d82, type: 2}
+  - {fileID: 2100000, guid: fe3b13edd216d9d4b878b48d62a2f6ce, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

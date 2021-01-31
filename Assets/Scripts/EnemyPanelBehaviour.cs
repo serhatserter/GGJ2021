@@ -28,7 +28,7 @@ public class EnemyPanelBehaviour : MonoBehaviour
 
             distanceZ = Mathf.Clamp(100, 0, startDistance);
 
-            redPanel.color = new Color(redPanel.color.r, redPanel.color.g, redPanel.color.b, (0.7f - (distanceZ / 100f)));
+            redPanel.color = new Color(redPanel.color.r, redPanel.color.g, redPanel.color.b, (0.9f - (distanceZ / 100f)));
 
         }
     }

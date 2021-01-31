@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 54083019439314873}
   - component: {fileID: 54083019439314872}
   - component: {fileID: 54083019439314879}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LastFloor
   m_TagString: LastPlatform
   m_Icon: {fileID: 0}
