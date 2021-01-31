@@ -18,7 +18,7 @@ public class PlatformBehaviour : MonoBehaviour
         GameManager.Instance.IsPlatformInvisible += OnVisibleControl;
 
         int random = UnityEngine.Random.Range(0, 100);
-        if (random > 75) isVisible = true;
+        if (random > 70) isVisible = true;
     }
     private void OnDestroy()
     {
