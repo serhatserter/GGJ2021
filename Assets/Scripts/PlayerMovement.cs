@@ -37,21 +37,41 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (isTouching) GameManager.Instance.IsPlatformInvisible?.Invoke(true);
+
+
+                if (isTouching)
+                {
+
+                    GameManager.Instance.IsPlatformInvisible?.Invoke(true);
+                }
 
             }
             else if (Input.GetMouseButton(0))
             {
-                if (isTouching) GameManager.Instance.IsPlatformInvisible?.Invoke(true);
+
+
+
+                if (isTouching)
+                {
+
+                    GameManager.Instance.IsPlatformInvisible?.Invoke(true);
+                }
 
                 PlayerSideMovement();
                 PlayerForwardMovement();
             }
             else if (Input.GetMouseButtonUp(0))
             {
+
+
                 GameManager.Instance.PlayerAnimator.SetBool("isRun", false);
 
-                if (isTouching) GameManager.Instance.IsPlatformInvisible?.Invoke(false);
+                if (isTouching)
+                {
+                    GameManager.Instance.IsPlatformInvisible?.Invoke(false);
+
+
+                }
 
                 PlayerStopMovement();
                 PlayerJump();
@@ -95,6 +115,10 @@ public class PlayerMovement : MonoBehaviour
     {
         GameManager.Instance.PlayerAnimator.SetBool("isRun", true);
         playerRb.velocity = new Vector3(playerRb.velocity.x, playerRb.velocity.y, playerMoveZSpeed);
+
+        //GetComponent<AudioSource>().clip = SoundManager.Instance.AudioClips[2];
+        //GetComponent<AudioSource>().loop = true;
+        //GetComponent<AudioSource>().Play();
     }
 
     void PlayerStopMovement()
@@ -117,6 +141,10 @@ public class PlayerMovement : MonoBehaviour
                 GameManager.Instance.PlayerAnimator.SetBool("isJump", true);
                 playerRb.AddForce(jumpForceVector * 250f);
                 GameManager.Instance.IsPlatformInvisible?.Invoke(true);
+
+                GetComponent<AudioSource>().clip = SoundManager.Instance.AudioClips[3];
+                GetComponent<AudioSource>().Play();
+
                 isJumping = true;
             }
 
@@ -149,6 +177,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.transform.tag == "Platform")
         {
 
+
             GameManager.Instance.LastTouchedPlatform = collision.gameObject;
 
             jumpPointPosition = collision.transform.GetChild(0).position;
@@ -176,6 +205,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Platform")
         {
             //GameManager.Instance.PlayerAnimator.SetBool("isJump", true);
+
 
         }
         isTouching = false;

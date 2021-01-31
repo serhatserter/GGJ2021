@@ -62,6 +62,10 @@ public class MonsterMovement : MonoBehaviour
     {
         if (collision.transform.name == "Player" && !isFalling)
         {
+            GetComponent<AudioSource>().Play();
+            collision.gameObject.GetComponent<AudioSource>().clip = SoundManager.Instance.AudioClips[1];
+            collision.gameObject.GetComponent<AudioSource>().Play();
+
             GameManager.Instance.MonsterAnimator.SetBool("isFail", true);
             GameManager.Instance.PlayerAnimator.SetBool("isFall", true);
 
