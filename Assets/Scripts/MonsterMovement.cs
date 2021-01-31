@@ -50,6 +50,9 @@ public class MonsterMovement : MonoBehaviour
     {
         if (collision.transform.name == "Player")
         {
+            GameManager.Instance.MonsterAnimator.SetBool("isFail", true);
+            GameManager.Instance.PlayerAnimator.SetBool("isFall", true);
+
             StartCoroutine(LoseCamWait());
         }
     }
@@ -64,7 +67,7 @@ public class MonsterMovement : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         LoseCam.SetActive(true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         GameManager.Instance.FailPanel.SetActive(true);
 
     }

@@ -45,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(0))
             {
+                GameManager.Instance.PlayerAnimator.SetBool("isRun", false);
+
                 if (isTouching) GameManager.Instance.IsPlatformInvisible?.Invoke(false);
 
                 PlayerStopMovement();
@@ -87,11 +89,14 @@ public class PlayerMovement : MonoBehaviour
 
     void PlayerForwardMovement()
     {
+        GameManager.Instance.PlayerAnimator.SetBool("isRun", true);
         playerRb.velocity = new Vector3(playerRb.velocity.x, playerRb.velocity.y, playerMoveZSpeed);
     }
 
     void PlayerStopMovement()
     {
+
+
         if (!isJumping)
         {
             playerRb.velocity = new Vector3(playerRb.velocity.x, playerRb.velocity.y, 0);
@@ -135,6 +140,8 @@ public class PlayerMovement : MonoBehaviour
             GameManager.Instance.LastTouchedPlatform = collision.gameObject;
 
             jumpPointPosition = collision.transform.GetChild(0).position;
+
+            GameManager.Instance.PlayerAnimator.SetBool("isJump", false);
             isJumping = false;
 
             if (!Input.GetMouseButton(0)) GameManager.Instance.IsPlatformInvisible?.Invoke(false);
@@ -153,7 +160,11 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
 
-
+        if (collision.gameObject.tag == "Platform")
+        {
+            GameManager.Instance.PlayerAnimator.SetBool("isJump", true);
+            Debug.Log("GİRDİ");
+        }
         isTouching = false;
 
 

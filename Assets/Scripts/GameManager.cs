@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     public GameObject WinPanel;
     public GameObject FailPanel;
 
+    public Animator PlayerAnimator;
+    public Animator MonsterAnimator;
 
     public GameObject LastTouchedPlatform;
     public Action<bool> IsPlatformInvisible;
