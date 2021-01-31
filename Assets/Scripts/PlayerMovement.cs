@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 jumpForceVector;
     private Vector3 jumpPointPosition;
+
+    private Vector3 lastPlatformPos;
+    private Vector3 rotateVec;
 
     private bool isJumping;
     private bool isTouching;
@@ -64,10 +68,10 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckFall()
     {
-        Vector3 lastPlatformPos = GameManager.Instance.LastTouchedPlatform.transform.position;
 
         if (transform.position.y < -3f)
         {
+            lastPlatformPos = GameManager.Instance.LastTouchedPlatform.transform.position;
             transform.position = new Vector3(lastPlatformPos.x, lastPlatformPos.y + 5f, lastPlatformPos.z - 1f);
         }
     }
@@ -110,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (transform.position.z > jumpPointPosition.z)
             {
-
+                GameManager.Instance.PlayerAnimator.SetBool("isJump", true);
                 playerRb.AddForce(jumpForceVector * 250f);
                 GameManager.Instance.IsPlatformInvisible?.Invoke(true);
                 isJumping = true;
@@ -127,7 +131,15 @@ public class PlayerMovement : MonoBehaviour
         GameManager.Instance.Monster.SetActive(false);
         GameManager.Instance.IsStart = false;
 
-        yield return new WaitForSeconds(1f);
+        rotateVec = transform.eulerAngles;
+        rotateVec.y -= 180;
+
+        transform.DORotate(rotateVec, 0.2f).OnComplete(() =>
+        {
+            GameManager.Instance.PlayerAnimator.SetBool("isWin", true);
+        });
+
+        yield return new WaitForSeconds(4f);
 
         GameManager.Instance.WinPanel.SetActive(true);
     }
@@ -153,6 +165,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("WIN");
 
             StartCoroutine(WinWait());
+
         }
 
     }
@@ -162,8 +175,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (collision.gameObject.tag == "Platform")
         {
-            GameManager.Instance.PlayerAnimator.SetBool("isJump", true);
-            Debug.Log("GİRDİ");
+            //GameManager.Instance.PlayerAnimator.SetBool("isJump", true);
+
         }
         isTouching = false;
 

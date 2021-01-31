@@ -10,7 +10,7 @@ public class MonsterMovement : MonoBehaviour
     public GameObject StartCam;
     public GameObject LoseCam;
 
-
+    bool isFalling;
     private void Start()
     {
         monsterRb = GetComponent<Rigidbody>();
@@ -42,13 +42,25 @@ public class MonsterMovement : MonoBehaviour
 
     void MonsterForwardMovement()
     {
-        monsterRb.velocity = new Vector3(monsterRb.velocity.x, monsterRb.velocity.y, MonsterMoveZSpeed);
+        if (transform.position.z < GameManager.Instance.Player.transform.position.z)
+        {
+            monsterRb.velocity = new Vector3(monsterRb.velocity.x, monsterRb.velocity.y, MonsterMoveZSpeed);
+
+        }
+        else
+        {
+            isFalling = true;
+            monsterRb.velocity = Vector3.zero;
+
+            GameManager.Instance.FailPanel.SetActive(true);
+
+        }
 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.name == "Player")
+        if (collision.transform.name == "Player" && !isFalling)
         {
             GameManager.Instance.MonsterAnimator.SetBool("isFail", true);
             GameManager.Instance.PlayerAnimator.SetBool("isFall", true);
@@ -67,7 +79,7 @@ public class MonsterMovement : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         LoseCam.SetActive(true);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(6f);
         GameManager.Instance.FailPanel.SetActive(true);
 
     }

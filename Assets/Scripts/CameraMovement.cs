@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    public float CamDistanceY = 5f;
-    public float CamDistanceZ = 8f;
+    public float CamDistanceY;
+    public float CamDistanceZ;
     private Vector3 camPosition;
     private float camPositionY;
     private float camPositionZ;
